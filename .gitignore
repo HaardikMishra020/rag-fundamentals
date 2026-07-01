@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Env files
+.env
+
+# Data folder contents (keep folder, ignore files inside)
+data/raw/*
+
+# Editor/project files
+.vscode/
+.idea/

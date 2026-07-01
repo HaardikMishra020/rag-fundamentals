@@ -1,0 +1,128 @@
+[
+  {
+    "id": "q1",
+    "category": "easy_lookup",
+    "question": "Who founded Nimbus Cloud Storage?",
+    "expected_answer": "Priya Kapoor and Daniel Osei",
+    "notes": "Single fact, appears in first paragraph. Should be trivial for any working retrieval."
+  },
+  {
+    "id": "q2",
+    "category": "easy_lookup",
+    "question": "What year was Nimbus founded?",
+    "expected_answer": "2018",
+    "notes": "Single fact, numeric."
+  },
+  {
+    "id": "q3",
+    "category": "precision_numeric",
+    "question": "How much does the Business tier cost per user per month?",
+    "expected_answer": "24 dollars",
+    "notes": "Tests whether retrieval grabs the right tier's number and not Starter's (9) or Enterprise's (custom)."
+  },
+  {
+    "id": "q4",
+    "category": "precision_numeric",
+    "question": "How much storage does the Starter tier include per user?",
+    "expected_answer": "100 GB",
+    "notes": "Adjacent numbers (9 dollars, 100 GB, 48-hour) in the same chunk -- good test of whether the model conflates values."
+  },
+  {
+    "id": "q5",
+    "category": "precision_name",
+    "question": "What external firm conducted Nimbus's SOC 2 and HIPAA audits?",
+    "expected_answer": "Ferrand Assurance",
+    "notes": "Exact proper-noun retrieval -- good candidate for testing keyword/BM25 vs pure vector search."
+  },
+  {
+    "id": "q6",
+    "category": "precision_numeric",
+    "question": "What was the bug bounty amount paid to the security researcher in the November 2023 incident?",
+    "expected_answer": "3,000 dollars",
+    "notes": "Numeric fact buried inside a narrative paragraph, not a table -- harder chunk to retrieve than the pricing section."
+  },
+  {
+    "id": "q7",
+    "category": "multi_hop",
+    "question": "Which member of the leadership team is responsible for the compliance work that led to Nimbus's SOC 2 and HIPAA audits?",
+    "expected_answer": "Maria Fonseca, Head of Compliance",
+    "notes": "Requires connecting the Leadership Team section with the Security Architecture section. Good test for whether single-chunk retrieval misses cross-section facts."
+  },
+  {
+    "id": "q8",
+    "category": "multi_hop",
+    "question": "If an Enterprise customer's Critical support ticket isn't handled and they want to know both the SLA and who technically owns infrastructure decisions, what would you tell them?",
+    "expected_answer": "Critical tickets for Enterprise customers get a 30-minute first response SLA; Daniel Osei, the CTO, oversees infrastructure and security.",
+    "notes": "Deliberately combines two unrelated sections (Support Policy + Leadership) to test multi-chunk retrieval and synthesis."
+  },
+  {
+    "id": "q9",
+    "category": "multi_hop",
+    "question": "What percentage of Enterprise customers use the encryption key management option that lets them use their own hardware, and what is that option called?",
+    "expected_answer": "About 30 percent, called BYOK (Bring Your Own Key)",
+    "notes": "Tests whether retrieval connects the named term (BYOK) with its adoption statistic in the following sentence."
+  },
+  {
+    "id": "q10",
+    "category": "reasoning",
+    "question": "Based on the incident history, what process change did Nimbus make after the March 2022 outage?",
+    "expected_answer": "Introduced a mandatory two-person review process for all production configuration changes",
+    "notes": "Tests retrieval of a consequence/causal clause rather than a standalone fact."
+  },
+  {
+    "id": "q11",
+    "category": "easy_lookup",
+    "question": "What is the internal codename for the project adding encrypted full-text search?",
+    "expected_answer": "Fogbank",
+    "notes": "Single fact from the Roadmap section, tests whether late-document chunks are retrieved as reliably as early ones."
+  },
+  {
+    "id": "q12",
+    "category": "distractor",
+    "question": "What is the uptime SLA for the Business tier?",
+    "expected_answer": "Not specified -- the 99.95 percent uptime SLA is stated only for the Enterprise tier, not Business.",
+    "notes": "Trap question. The document states an SLA number near the word 'Business' elsewhere (response time), so weak retrieval may wrongly attach the Enterprise uptime SLA to Business tier."
+  },
+  {
+    "id": "q13",
+    "category": "out_of_scope",
+    "question": "What programming language is Nimbus's backend written in?",
+    "expected_answer": "Not mentioned in the document. A good system should say it doesn't know rather than guessing.",
+    "notes": "Tests hallucination resistance -- this fact does not exist anywhere in the corpus."
+  },
+  {
+    "id": "q14",
+    "category": "out_of_scope",
+    "question": "Who is Nimbus's biggest competitor?",
+    "expected_answer": "Not mentioned in the document.",
+    "notes": "Tests hallucination resistance on a plausible-sounding but unanswerable business question."
+  },
+  {
+    "id": "q15",
+    "category": "out_of_scope",
+    "question": "What is the CEO's favorite programming language?",
+    "expected_answer": "Not mentioned in the document -- irrelevant/absurd question.",
+    "notes": "Sanity check that the system doesn't fabricate an answer just because a person (Priya Kapoor) is mentioned nearby other facts."
+  },
+  {
+    "id": "q16",
+    "category": "precision_numeric",
+    "question": "How long did it take Nimbus to patch the audit log vulnerability reported in November 2023?",
+    "expected_answer": "19 hours",
+    "notes": "Another buried numeric fact, good regression check between chunking strategies."
+  },
+  {
+    "id": "q17",
+    "category": "multi_hop",
+    "question": "Which data center region would a Starter tier customer in Germany most likely be assigned to, and how does that differ from how Business tier customers are assigned?",
+    "expected_answer": "eu-central (Frankfurt), assigned automatically by billing address; Business tier customers instead choose their region at signup.",
+    "notes": "Requires reasoning over the Data Centers section, not just pure lookup."
+  },
+  {
+    "id": "q18",
+    "category": "easy_lookup",
+    "question": "How many employees does Nimbus have as of 2025, and across how many offices?",
+    "expected_answer": "214 employees across three offices (Bengaluru, Berlin, Austin)",
+    "notes": "Two-part fact within a single sentence -- checks whether chunking splits it awkwardly."
+  }
+]
