@@ -3,3 +3,6 @@ numpy
 python-dotenv
 groq
 tiktoken
+uvicorn 
+fastapi 
+python-multipart

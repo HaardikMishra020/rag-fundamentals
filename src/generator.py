@@ -1,14 +1,12 @@
 from typing import List, Tuple
 from groq import Groq
 from src.chunker import Chunk
-from dotenv import load_dotenv
-load_dotenv()
-import os
+from src.config import GROQ_API_KEY
 
 def generate_answer(query: str, retrieved_chunks: List[Tuple[Chunk, float]], model_name: str = "llama-3.1-8b-instant") -> Tuple[str,List[Chunk]]:
     "Build a prompt from a query and retrieved chunks, call an LLM API, and return the answer."
     response = ""
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    client = Groq(api_key=GROQ_API_KEY)
     completion = client.chat.completions.create(
         model=model_name,
         messages=[
